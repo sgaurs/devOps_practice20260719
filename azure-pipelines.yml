@@ -45,5 +45,3 @@ stages:
           backendAzureRmStorageAccountName: 'testbackendsa'
           backendAzureRmContainerName: 'testsc'
           backendAzureRmKey: 'terraformdev20260719.tfstate'
-
-
