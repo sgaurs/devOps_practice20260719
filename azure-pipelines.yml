@@ -1,0 +1,23 @@
+trigger:
+  branches:
+    include:
+      - feature*
+      - main
+
+parameters:
+  - name: environment
+    displayName: EnvironmentSelection
+    type: string
+    default: dev
+    values:
+      - dev
+      - test
+      - prod
+
+variables:
+  workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/${{ parameters.environment }}''
+
+pool: 
+  name: Aarush_agent_pool
+  demands: 
+    - Agent.Name -equals Aarush_agent
