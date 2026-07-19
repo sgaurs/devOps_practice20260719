@@ -15,9 +15,35 @@ parameters:
       - prod
 
 variables:
-  workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/${{ parameters.environment }}''
+  MyWorkingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/${{ parameters.environment }}'
+  SubsID: 'b197523b-6a83-4a07-8922-3be74b9d39be'
 
 pool: 
   name: Aarush_agent_pool
-  demands: 
+  demands:
     - Agent.Name -equals Aarush_agent
+
+stages:
+  - stage: A
+    displayName: Precommit
+    jobs:
+    - job: A
+      displayName: TerraformCodequalityCheck
+      steps:
+      - task: TerraformInstaller@1
+        inputs:
+          terraformVersion: 'latest'
+
+      - task: TerraformTask@5
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: MyWorkingDirectory
+          backendServiceArm: 'myservconn'
+          backendAzureRmOverrideSubscriptionID: SubsID
+          backendAzureRmResourceGroupName: 'TestRG'
+          backendAzureRmStorageAccountName: 'testbackendsa'
+          backendAzureRmContainerName: 'testsc'
+          backendAzureRmKey: 'terraformdev20260719.tfstate'
+
+
