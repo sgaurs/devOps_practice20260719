@@ -38,9 +38,9 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: MyWorkingDirectory
+          workingDirectory: $(MyWorkingDirectory)
           backendServiceArm: 'myservconn'
-          backendAzureRmOverrideSubscriptionID: SubsID
+          backendAzureRmOverrideSubscriptionID: $(SubsID)
           backendAzureRmResourceGroupName: 'TestRG'
           backendAzureRmStorageAccountName: 'testbackendsa'
           backendAzureRmContainerName: 'testsc'
